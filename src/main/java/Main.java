@@ -1,18 +1,36 @@
+import app.login.*;
+import app.index.*;
+import app.util.*;
 import static spark.Spark.*;
+import static spark.debug.DebugScreen.*;
 
 public class Main {
+
     public static void main(String[] args) {
+
+        // Configure Spark
+        port(4567);
         staticFiles.location("/public");
-        port(getHerokuAssignedPort());
+        staticFiles.expireTime(600L);
+        enableDebugScreen();
 
-        get("/hello", (req, res) -> "<p>(SPIDER) Why helllo Meester Ant!</p>\n(ANT) H-hello?\n(SPIDER) It's so nice to see you tooday!\n(ANT) I-it is?\n(SPIDER) Why yes! In fact, I would luv it eef you could join me FOR DEENUR!!! BWAHAHAHAHA!!!\n");
+        // Set up before-filters (called before each get/post)
+        before("*",                  Filters.addTrailingSlashes);
+        //before("*",                  Filters.handleLocaleChange);
+
+        // Set up routes
+        redirect.get("/", "/index/");
+        get(Path.Web.INDEX,          IndexController.serveIndexPage);
+        get(Path.Web.LOGIN,          LoginController.serveLoginPage);
+        post(Path.Web.LOGIN,         LoginController.handleLoginPost);
+        post(Path.Web.LOGOUT,        LoginController.handleLogoutPost);
+
+        get("*",                     ViewUtil.notFound);
+
+        //Set up after-filters (called after each get/post)
+        after("*",                   Filters.addGzipHeader);
+
     }
 
-    static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
-        }
-        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
-    }
 }
+

@@ -1,0 +1,36 @@
+#macro(mainLayout)
+<html>
+<head>
+    <title>Mav Maintenance</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header>
+    <nav>
+        <ul id="menu">
+            #if($currentUser)
+                <li>
+                    <form method="post" action="$WebPath.getLOGOUT()">
+                        <button id="logout">Log Out</button>
+                    </form>
+                </li>
+            #else
+                <li><a href="$WebPath.getLOGIN()"">Log In</a></li>
+            #end
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="content">
+        $bodyContent
+    </div>
+</main>
+<footer>
+    Copyright
+</footer>
+</body>
+</html>
+#end
+
