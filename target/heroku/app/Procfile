@@ -1,1 +1,0 @@
-web: java -jar target/mav-maintenance-1.0-jar-with-dependencies.jar target/*.war
