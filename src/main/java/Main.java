@@ -10,7 +10,9 @@ public class Main {
 
         // Configure Spark
         port(4567);
+
         staticFiles.location("/public");
+
         staticFiles.expireTime(600L);
         enableDebugScreen();
 

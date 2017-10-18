@@ -1,23 +1,59 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
-<form id="loginForm" method="post">
-    #if($authenticationFailed)
-        <p class="bad notification">Login Failed</p>
-    #elseif($authenticationSucceeded)
-        <p class="good notification">You're logged in as $currentUser</p>
-    #elseif($loggedOut)
-        <p class="notification">You have been logged out.</p>
-    #end
-    <h1>Login</h1>
-    <p>Enter your username and password</p>
-    <label>Username</label>
-    <input type="text" name="username" placeholder="Username" value="" required>
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Password" value="" required>
-    #if($loginRedirect)
-        <input type="hidden" name="loginRedirect" value="$loginRedirect">
-    #end
-    <input type="submit" value="Log in">
-</form>
+<!-- Code from https://v4-alpha.getbootstrap.com/examples/jumbotron/ and possibly depenency(s) -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <form id="loginForm" method="post">
+                #if($authenticationFailed)
+                    <p class="bad notification">Login Failed</p>
+                #elseif($authenticationSucceeded)
+                    <p class="good notification">You're logged in as $currentUser</p>
+                #elseif($loggedOut)
+                    <p class="notification">You have been logged out.</p>
+                #end
+                <h1>Login</h1>
+                <p>Enter your username and password</p>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" class="form-control" type="text" name="username" placeholder="Username" value="" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Password" value="" required>
+                </div>
+                #if($loginRedirect)
+                    <input type="hidden" name="loginRedirect" value="$loginRedirect">
+                #end
+                <input  class="btn btn-default" type="submit" value="Log in">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- The MIT License (MIT)
+
+Copyright (c) 2011-2016 Twitter, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. -->
 #end
 
