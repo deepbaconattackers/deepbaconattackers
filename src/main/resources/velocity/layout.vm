@@ -22,6 +22,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/login">
+      <!--
+        #**
                 #if($currentUser)
                     <li>
                         <form method="post" action="$WebPath.getLOGOUT()">
@@ -29,8 +31,10 @@
                         </form>
                     </li>
                 #else
-                    <li><a href="$WebPath.getLOGIN()"">Log In</a></li>
+                    <li><a href="$WebPath.getLOGIN()">Log In</a></li>
                 #end
+        *#
+      -->
     </a>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -60,7 +64,7 @@
     </div>
 </nav>
 
-<header><!-- 
+<header><!-- #**
     <nav>
         <ul id="menu">
             #if($currentUser)
@@ -74,7 +78,7 @@
             #end
         </ul>
     </nav>
-</header> -->
+</header> *# -->
 <main>
     <div id="content">
         $bodyContent
