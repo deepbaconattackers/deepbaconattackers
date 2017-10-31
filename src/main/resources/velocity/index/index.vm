@@ -25,12 +25,12 @@
           <tr>
             <th>Time</th>
             <th>Room</th>
-            <th>Type</th>
-            <th>Assignee</th>
+            <th>Title</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+   <!--       <tr>
             <th scope="row">Today 5pm</th>
             <td>PKI Men's room 2nd floor</td>
             <td>No towels</td>
@@ -47,7 +47,15 @@
             <td>Atrium</td>
             <td>Snow man melting</td>
             <td>Bob</td>
-          </tr>
+          </tr> -->
+          #foreach( $ticket in $tickets )
+              <tr>
+              <td>$date.format('medium',$ticket.getCreated())</td>
+              <td>$ticket.getRoom()</td>
+              <td>$ticket.getTitle()</td>
+              <td>$ticket.getStatus()</td>
+              </tr>
+          #end
         </tbody>
       </table>
       <br />

@@ -1,6 +1,7 @@
 package app.util;
 
 import org.apache.velocity.app.*;
+import org.apache.velocity.tools.generic.DateTool;
 import org.eclipse.jetty.http.*;
 import spark.*;
 import spark.template.velocity.*;
@@ -16,6 +17,7 @@ public class ViewUtil {
         //model.put("msg", new MessageBundle(getSessionLocale(request)));
         model.put("currentUser", getSessionCurrentUser(request));
         model.put("WebPath", Path.Web.class); // Access application URLs from templates
+        model.put("date", new DateTool());
         return strictVelocityEngine().render(new ModelAndView(model, templatePath));
     }
 
