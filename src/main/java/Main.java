@@ -1,5 +1,6 @@
 import app.login.*;
 import app.index.*;
+import app.tickets.TicketController;
 import app.util.*;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
@@ -27,6 +28,8 @@ public class Main {
         post(Path.Web.LOGIN,         LoginController.handleLoginPost);
         post(Path.Web.LOGOUT,        LoginController.handleLogoutPost);
 
+        get(Path.Web.CREATE_TICKETS, TicketController.serveCreatePage);
+        post(Path.Web.CREATE_TICKETS, TicketController.handleCreateTicketPost);
         get("*",                     ViewUtil.notFound);
 
         //Set up after-filters (called after each get/post)

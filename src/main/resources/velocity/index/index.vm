@@ -30,24 +30,6 @@
           </tr>
         </thead>
         <tbody>
-   <!--       <tr>
-            <th scope="row">Today 5pm</th>
-            <td>PKI Men's room 2nd floor</td>
-            <td>No towels</td>
-            <td>no one</td>
-          </tr>
-          <tr>
-            <th scope="row">Yesterday 8am</th>
-            <td>Atrium</td>
-            <td>Wet floor</td>
-            <td>Bob</td>
-          </tr>
-          <tr>
-            <th scope="row">Yesterday 7:30am</th>
-            <td>Atrium</td>
-            <td>Snow man melting</td>
-            <td>Bob</td>
-          </tr> -->
           #foreach( $ticket in $tickets )
               <tr>
               <td>$date.format('medium',$ticket.getCreated())</td>
@@ -59,6 +41,7 @@
         </tbody>
       </table>
       <br />
+      <a href="$WebPath.getCreateTICKETS()">Create Ticket</a>
       <br />
       <br />
       <br />
