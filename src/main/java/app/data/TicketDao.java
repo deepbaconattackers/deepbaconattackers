@@ -45,14 +45,13 @@ public class TicketDao {
 
         try (Connection c = sql2o.open())
         {
-            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :status, :createdById, :roomId)",true)
+            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :description, :status, :createdById, :room)",true)
                     .addParameter("name", ticket.getName())
                     .addParameter("type", ticket.getType())
+                    .addParameter("description", "")
                     .addParameter("status", ticket.getStatus())
                     .addParameter("createdById", ticket.getCreatedBy().getUserId())
-                    .addParameter("roomId", ticket.getRoom().getId())
-                    //.addParameter("createdOn", Date.from(Instant.now()))
-                    //.addParameter("modifiedOn", Date.from(Instant.now()))
+                    .addParameter("room", ticket.getRoom().getId())
                     .executeUpdate()
                     .getKey(Integer.class);
         }
