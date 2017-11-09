@@ -2,6 +2,8 @@ package app.tickets;
 
 import app.data.TicketDao;
 import app.models.Ticket;
+import app.user.User;
+import app.user.UserDao;
 import app.util.ConnInfo;
 import app.util.Path;
 import app.util.ViewUtil;
@@ -19,9 +21,12 @@ public class TicketController {
     static Sql2o sql2o = new Sql2o(connInfo.getDbUrl() + "?sslmode=require",
             connInfo.getUserName(), connInfo.getPassword()
     );
+    static TicketDao ticketDao = new TicketDao(sql2o);
 
     public static Route serveCreatePage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
+
+        model.put("rooms", ticketDao.GetRooms());
         return ViewUtil.render(request, model, Path.Template.CREATE_TICKET);
     };
 
@@ -29,19 +34,20 @@ public class TicketController {
         Map<String, Object> model = new HashMap<>();
         String name = request.queryParams("name");
         String type = request.queryParams("type");
-
+        String roomId = request.queryParams("room");
         //username lives in the session
         //request.session().attribute("currentUser")
 
-        //todo: a couple of these things are hardcoded
-        TicketDao ticketDao = new TicketDao(sql2o);
+        UserDao userDao = new UserDao(sql2o);
+        User u = userDao.getUserByUsername(request.session().attribute("currentUser"));
+
         Ticket ticket = ticketDao.CreateTicket(
                 new Ticket(
                         name,
                         type,
                         "Pending Assignment",
-                        1, //todo: hardcoded -- either add the id to the session on login or look up user by user name
-                        1 //todo: hardcoded
+                        u.getUserId(),
+                        Integer.parseInt(roomId)
                 )
         );
 

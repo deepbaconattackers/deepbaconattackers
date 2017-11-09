@@ -13,9 +13,9 @@ public class UserController {
             connInfo.getUserName(), connInfo.getPassword()
     );
 
-
     // Authenticate the user by hashing the inputted password using the stored salt,
     // then comparing the generated hashed password to the stored hashed password
+    //the last parameter is an "out" parameter that can be used by the caller
     public static boolean authenticate(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
             return false;
@@ -33,7 +33,9 @@ public class UserController {
 
 
         String hashedPassword = BCrypt.hashpw(password, user.getSalt());
-        return hashedPassword.equals(user.getHashedPassword());
+        boolean isValidUser = hashedPassword.equals(user.getHashedPassword());
+
+        return isValidUser;
     }
 
     // This method doesn't do anything, it's just included as an example

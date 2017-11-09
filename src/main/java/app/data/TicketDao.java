@@ -1,6 +1,7 @@
 package app.data;
 
 import app.index.TicketSummary; //probably should move to models folder or something
+import app.models.Room;
 import app.models.Ticket;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -15,6 +16,22 @@ public class TicketDao {
 
     public TicketDao(Sql2o sql2o) {
         this.sql2o = sql2o;
+    }
+
+    public Iterable<Room> GetRooms()
+    {
+        try (Connection c = sql2o.open())
+        {
+            List<Room> rooms = c.createQuery("select room_id as id, room_name as name from rooms order by room_name asc")
+                    .executeAndFetch(Room.class);
+
+            return rooms;
+        }
+        catch(Exception e)
+        {
+            //todo: log it or do something
+            return null;
+        }
     }
 
     public Iterable<TicketSummary> GetRecentTickets()
