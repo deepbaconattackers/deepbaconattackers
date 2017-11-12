@@ -20,13 +20,13 @@
       <br />
       <div class="row">
       <h1>Issues</h1>
-      <table class="table">
+      <table class="table" id="ticketTable">
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Room</th>
-            <th>Title</th>
-            <th>Status</th>
+            <th id="timeTH">Time</th>
+            <th id="roomTH">Room</th>
+            <th id="titleTH">Title</th>
+            <th id="statusTH">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +40,67 @@
           #end
         </tbody>
       </table>
+
+      <!-- Table sorting functionality (Need to put this in a separate file but I'm not sure how with Velocity) -->
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+      <script type="text/javascript">
+        function sortTable(f,n){
+          var rows = $('#ticketTable tbody  tr').get();
+
+          rows.sort(function(a, b) {
+
+            var A = getVal(a);
+            var B = getVal(b);
+
+            if(A < B) {
+              return -1*f;
+            }
+            if(A > B) {
+              return 1*f;
+            }
+            return 0;
+          });
+
+          function getVal(elm){
+            var v = $(elm).children('td').eq(n).text().toUpperCase();
+            if($.isNumeric(v)){
+              v = parseInt(v,10);
+            }
+            return v;
+          }
+
+          $.each(rows, function(index, row) {
+            $('#ticketTable').children('tbody').append(row);
+          });
+        }
+
+        var f_timeTH = 1;
+        var f_roomTH = 1;
+        var f_titleTH = 1;
+        var f_statusTH = 1;
+
+        $("#timeTH").click(function(){
+            f_timeTH *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_timeTH,n);
+        });
+        $("#roomTH").click(function(){
+            f_roomTH *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_roomTH,n);
+        });
+        $("#titleTH").click(function(){
+          f_titleTH *= -1;
+          var n = $(this).prevAll().length;
+          sortTable(f_titleTH,n);
+        });
+        $("#statusTH").click(function(){
+          f_statusTH *= -1;
+          var n = $(this).prevAll().length;
+          sortTable(f_statusTH,n);
+        });
+      </script>
+
       <br />
       <a href="$WebPath.getCreateTICKETS()">Create Ticket</a>
       <br />
