@@ -42,14 +42,20 @@
                         <script type="text/javascript">
                           $(function() {
                             $("#logout").on("click",function(e) {
-                              e.preventDefault(); // cancel the link itself
-                              $.post(this.href,function(data) {});
-                              $.post(this.href,function(data) {});
-                              window.location.replace($WebPath.getLOGIN());
+                              $.post($WebPath.getLOGOUT(), function(data) {
+                                window.location = ($WebPath.getLOGIN());
+                              });
                             });
                           });
                         </script>
-                        <a href="$WebPath.getLOGOUT()" id="logout">Log Out</a>
+
+                        <a id="logout" style="cursor: pointer;">Log Out</a>
+
+                        <!--
+                        <form method="post" action="$WebPath.getLOGOUT()">
+                          <button id="logout">Log Out</button>
+                        </form>
+                        -->
                     </li>
                 #else
                     <li><a href="$WebPath.getLOGIN()">Log In</a></li>
