@@ -42,7 +42,6 @@
       </table>
 
       <!-- Table sorting functionality (Need to put this in a separate file but I'm not sure how with Velocity) -->
-      <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
       <script type="text/javascript">
         function sortTable(f,n){
           var rows = $('#ticketTable tbody  tr').get();
