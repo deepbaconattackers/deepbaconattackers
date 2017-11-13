@@ -1,6 +1,7 @@
 package app.tickets;
 
 import app.data.TicketDao;
+import app.index.TicketSummary;
 import app.models.Ticket;
 import app.user.User;
 import app.user.UserDao;
@@ -56,4 +57,54 @@ public class TicketController {
         return ViewUtil.render(request, model, Path.Template.CREATE_TICKET_SUCCESS);
     };
 
+    public static Route serveEditPage = (Request request, Response response) -> {
+        Map<String, Object> model = new HashMap<>();
+        //model.put("tickets", getLatestTicketsWithId());
+        //model.put("tickets", getLatestTickets());
+        model.put("tickets", getTicket(11));
+        model.put("rooms", ticketDao.GetRooms());
+        return ViewUtil.render(request, model, Path.Template.EDIT_TICKET);
+    };
+
+    public static Route handleEditTicketPost = (Request request, Response response) -> {
+        Map<String, Object> model = new HashMap<>();
+        String name = request.queryParams("name");
+        String roomId = request.queryParams("room");
+        String ticketId = request.queryParams("id");
+        String status = request.queryParams("status");
+        //username lives in the session
+        //request.session().attribute("currentUser")
+
+        UserDao userDao = new UserDao(sql2o);
+        User u = userDao.getUserByUsername(request.session().attribute("currentUser"));
+
+        Ticket ticket = ticketDao.EditTicket(
+                new Ticket(
+                        Integer.parseInt(ticketId),
+                        name,
+                        status,
+                        u.getUserId(),
+                        Integer.parseInt(roomId)
+                )
+        );
+
+        model.put("ticketId", ticket.getId());
+
+        return ViewUtil.render(request, model, Path.Template.CREATE_TICKET_SUCCESS);
+    };
+
+    public static Iterable<TicketSummary> getTicket(int id) {
+        TicketDao ticketDao = new TicketDao(sql2o);
+        return ticketDao.GetTicketById(id);
+    }
+
+    public static Iterable<TicketSummary> getLatestTickets() {
+        TicketDao ticketDao = new TicketDao(sql2o);
+        return ticketDao.GetRecentTickets();
+    }
+
+    public static Iterable<TicketSummary> getLatestTicketsWithId() {
+        TicketDao ticketDao = new TicketDao(sql2o);
+        return ticketDao.GetTicketsWithId();
+    }
 }

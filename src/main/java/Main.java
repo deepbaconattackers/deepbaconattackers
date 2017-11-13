@@ -30,6 +30,9 @@ public class Main {
 
         get(Path.Web.CREATE_TICKETS, TicketController.serveCreatePage);
         post(Path.Web.CREATE_TICKETS, TicketController.handleCreateTicketPost);
+
+        get(Path.Web.EDIT_TICKETS, TicketController.serveEditPage);
+        post(Path.Web.EDIT_TICKETS, TicketController.handleEditTicketPost);
         get("*",                     ViewUtil.notFound);
 
         //Set up after-filters (called after each get/post)

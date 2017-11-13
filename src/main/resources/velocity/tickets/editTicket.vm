@@ -1,0 +1,63 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<!-- Code from https://v4-alpha.getbootstrap.com/examples/jumbotron/ and possibly depenency(s) -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            #if($currentUser)
+            #foreach( $ticket in $tickets )
+            <form id="editTicketForm" method="post">
+                <h1>Edit Ticket</h1>
+
+                <div class="form-group">
+                    <label for="name">Title</label>
+                    <input id="name" class="form-control" type="text" name="name" placeholder="Title" value="$ticket.getTitle()" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <input id="status" class="form-control" type="text" name="status" placeholder="Status" value="$ticket.getStatus()" required>
+                </div>
+                <div class="form-group">
+                                    <label for="name">Room</label>
+                <select class="form-control" id="room" name="room" required>
+                 #foreach( $room in $rooms )
+                    #if($room.getName() == $ticket.getRoom())
+                         <option value="$room.getId()" selected="selected">$room.getName()</option>
+                    #else
+                         <option value="$room.getId()">$room.getName()</option>
+                    #end
+                 #end
+                </select>
+                <input type="hidden" name="id" value="$ticket.getId()">
+                </div>
+                <input  class="btn btn-default" type="submit" value="Edit Ticket">
+            </form>
+             <!---     <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Time</th>
+                        <th>Room</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                          <tr>
+                          <td>$date.format('medium',$ticket.getCreated())</td>
+                          <td>$ticket.getRoom()</td>
+                          <td>$ticket.getTitle()</td>
+                          <td>$ticket.getStatus()</td>
+                          </tr>
+                    </tbody>
+                  </table>--->
+             #end
+            #end
+            #if(!$currentUser)
+                <p class="bad notification">You are not logged in.</p>
+            #end
+        </div>
+    </div>
+</div>
+#end
+

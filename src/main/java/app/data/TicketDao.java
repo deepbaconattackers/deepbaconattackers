@@ -50,6 +50,39 @@ public class TicketDao {
         }
     }
 
+    public Iterable<TicketSummary> GetTicketsWithId()
+    {
+        try (Connection c = sql2o.open())
+        {
+            List<TicketSummary> tickets = c.createQuery("select created, room_name as room, ticket_id as id, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc limit 10")
+                    .executeAndFetch(TicketSummary.class);
+
+            return tickets;
+        }
+        catch(Exception e)
+        {
+            //todo: log it or do something
+            return null;
+        }
+    }
+
+    public Iterable<TicketSummary> GetTicketById(int id)
+    {
+        try (Connection c = sql2o.open())
+        {
+            List<TicketSummary> tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id where tickets.ticket_id = :id order by created desc")
+                    .addParameter("id", id)
+                    .executeAndFetch(TicketSummary.class);
+
+            return tickets;
+        }
+        catch(Exception e)
+        {
+            //todo: log it or do something
+            return null;
+        }
+    }
+
     /**
      * Method which will persist a ticket to the database -- id is ignored and will be set to the id of the inserted ticket
      * if successful (so send in 0).  CreatedOn and Modified on are also ignored.
@@ -69,6 +102,31 @@ public class TicketDao {
                     .addParameter("status", ticket.getStatus())
                     .addParameter("createdById", ticket.getCreatedBy().getUserId())
                     .addParameter("room", ticket.getRoom().getId())
+                    .executeUpdate()
+                    .getKey(Integer.class);
+        }
+        catch(Exception e)
+        {
+            //todo: log it or do something
+            System.out.println(e.getMessage());
+            return ticket;
+        }
+
+        ticket.setId(ticketId);
+        return ticket;
+    }
+
+    public Ticket EditTicket(Ticket ticket)
+    {
+        int ticketId = 0;
+
+        try (Connection c = sql2o.open())
+        {
+            ticketId = c.createQuery("update tickets set room_id = :room, ticket_name = :name, ticket_status = :status where ticket_id = :id")
+                    .addParameter("name", ticket.getName())
+                    .addParameter("status", ticket.getStatus())
+                    .addParameter("room", ticket.getRoom().getId())
+                    .addParameter("id", ticket.getId())
                     .executeUpdate()
                     .getKey(Integer.class);
         }

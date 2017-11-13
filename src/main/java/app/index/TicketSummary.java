@@ -8,12 +8,14 @@ public class TicketSummary {
     private String room;
     private String title;
     private String status;
+    private int id;
 
     public TicketSummary(Date created, String room, String title, String status){
         this.created = created;
         this.room = room;
         this.title = title;
         this.status = status;
+        this.id = id;
     }
 
     public Date getCreated() {
@@ -30,6 +32,10 @@ public class TicketSummary {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
 }
