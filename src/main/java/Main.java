@@ -31,7 +31,7 @@ public class Main {
         get(Path.Web.CREATE_TICKETS, TicketController.serveCreatePage);
         post(Path.Web.CREATE_TICKETS, TicketController.handleCreateTicketPost);
 
-        get(Path.Web.EDIT_TICKETS, TicketController.serveEditPage);
+        get(Path.Web.EDIT_TICKETS + ":id/", TicketController.serveEditPage);
         post(Path.Web.EDIT_TICKETS, TicketController.handleEditTicketPost);
         get("*",                     ViewUtil.notFound);
 

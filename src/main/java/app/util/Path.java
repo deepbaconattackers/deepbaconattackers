@@ -40,6 +40,7 @@ public class Path {
         public static final String CREATE_TICKET_SUCCESS = "/velocity/tickets/success.vm";
 
         public static final String EDIT_TICKET = "/velocity/tickets/editTicket.vm";
+        public static final String EDIT_TICKET_SUCCESS = "/velocity/tickets/editSuccess.vm";
     }
 
 }

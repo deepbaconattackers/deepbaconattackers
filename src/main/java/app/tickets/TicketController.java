@@ -61,7 +61,9 @@ public class TicketController {
         Map<String, Object> model = new HashMap<>();
         //model.put("tickets", getLatestTicketsWithId());
         //model.put("tickets", getLatestTickets());
-        model.put("tickets", getTicket(11));
+        //String my_id = request.queryParams("id");
+        //int id_num = Integer.parseInt(my_id);
+        model.put("tickets", getTicket(Integer.parseInt(request.params(":id"))));
         model.put("rooms", ticketDao.GetRooms());
         return ViewUtil.render(request, model, Path.Template.EDIT_TICKET);
     };
@@ -90,7 +92,7 @@ public class TicketController {
 
         model.put("ticketId", ticket.getId());
 
-        return ViewUtil.render(request, model, Path.Template.CREATE_TICKET_SUCCESS);
+        return ViewUtil.render(request, model, Path.Template.EDIT_TICKET_SUCCESS);
     };
 
     public static Iterable<TicketSummary> getTicket(int id) {

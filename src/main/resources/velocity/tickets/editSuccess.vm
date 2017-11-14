@@ -1,0 +1,22 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            #if($currentUser)
+                #if($ticketId > 0)
+                    <p>Congratulations, ticket $ticketId edited.</p>
+                #else
+                    <p class="bad notification">Oops... there seems to be a problem.  Please try again.</p>
+                #end
+
+            #end
+            #if(!$currentUser)
+                <p class="bad notification">You are not logged in.</p>
+            #end
+        </div>
+    </div>
+</div>
+#end
+
