@@ -22,7 +22,7 @@ public class UserDao implements IUserStore {
         //return users.stream().filter(b -> b.getUsername().equals(username)).findFirst().orElse(null);
         try (Connection c = sql2o.open())
         {
-                List<User> users = c.createQuery("select user_id as id, username, password as hashedPassword, salt from users where username=:username")
+                List<User> users = c.createQuery("select user_id as id, username, password as hashedPassword, role, salt from users where username=:username")
                         .addParameter("username", username)
                         .executeAndFetch(User.class);
 
