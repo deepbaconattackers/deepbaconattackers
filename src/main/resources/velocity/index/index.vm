@@ -27,6 +27,7 @@
             <th id="roomTH">Room</th>
             <th id="titleTH">Title</th>
             <th id="statusTH">Status</th>
+            <th id="editTH">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
               <td>$ticket.getRoom()</td>
               <td>$ticket.getTitle()</td>
               <td>$ticket.getStatus()</td>
+              <td><a href="$WebPath.getEditTICKETS()$ticket.getId()">Edit Ticket</a></td>
               </tr>
           #end
         </tbody>

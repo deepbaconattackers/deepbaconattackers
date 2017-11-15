@@ -54,7 +54,7 @@ public class TicketDao {
     {
         try (Connection c = sql2o.open())
         {
-            List<TicketSummary> tickets = c.createQuery("select created, room_name as room, ticket_id as id, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc limit 10")
+            List<TicketSummary> tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc")
                     .executeAndFetch(TicketSummary.class);
 
             return tickets;

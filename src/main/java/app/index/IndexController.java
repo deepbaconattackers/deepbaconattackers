@@ -21,7 +21,8 @@ public class IndexController {
     //todo: find out if there is a way to just call a method from the velocity template instead of putting on the model above
     public static Iterable<TicketSummary> getLatestTickets() {
         TicketDao ticketDao = new TicketDao(sql2o);
-        return ticketDao.GetRecentTickets();
+        return ticketDao.GetTicketsWithId();
+        //return ticketDao.GetRecentTickets();
     }
 }
 
