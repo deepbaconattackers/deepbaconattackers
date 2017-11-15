@@ -22,18 +22,19 @@ public class UserDao implements IUserStore {
         //return users.stream().filter(b -> b.getUsername().equals(username)).findFirst().orElse(null);
         try (Connection c = sql2o.open())
         {
-                List<User> users = c.createQuery("select user_id as id, username, password as hashedPassword, role, salt from users where username=:username")
-                        .addParameter("username", username)
-                        .executeAndFetch(User.class);
+            String query = "select user_id as id, username,"
+                         + " password as hashedPassword, role,"
+                         + " salt from users where username=:username";
 
-                if(users.size() > 1) {
-                    throw new Exception("More than one user found with this username.");
-                }
+            List<User> users = c.createQuery(query)
+                                .addParameter("username", username)
+                                .executeAndFetch(User.class);
 
-                if(users.size() < 1)
-                    return null; //or throw an exception, i don't know yet
+            if (users.size() > 1) throw new Exception("More than one user found with this username.");
 
-                return users.get(0);
+            if (users.size() < 1) return null; //or throw an exception, i don't know yet
+
+            return users.get(0);
         }
         catch(Exception e)
         {
@@ -42,4 +43,33 @@ public class UserDao implements IUserStore {
         }
     }
 
+    public Iterable<User> getUsers(String role){
+        try (Connection c = sql2o.open())
+        {
+            String query = "select user_id as id, username,"
+                         + " password as hashedPassword, role,"
+                         + " salt from users";
+                    
+            List<User> users;
+
+            if (role != null && !role.isEmpty()) {
+                query += " where role=:role";
+                users = c.createQuery(query)
+                                    .addParameter("role", role)
+                                    .executeAndFetch(User.class);
+            }
+            else {
+                users = c.createQuery(query)
+                                    .executeAndFetch(User.class);
+            }
+
+            if (users.size() < 1) return null;
+
+            return users;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
 }

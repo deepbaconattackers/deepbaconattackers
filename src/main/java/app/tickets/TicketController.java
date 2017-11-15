@@ -81,6 +81,7 @@ public class TicketController {
         //int id_num = Integer.parseInt(my_id);
         model.put("tickets", getTicket(Integer.parseInt(request.params(":id"))));
         model.put("rooms", ticketDao.GetRooms());
+        model.put("employees", userDao.getUsers("Staff"));
         return ViewUtil.render(request, model, Path.Template.EDIT_TICKET);
     };
 

@@ -79,13 +79,14 @@ public class TicketDao {
 
         try (Connection c = sql2o.open())
         {
-            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :description, :status, :createdById, :room)",true)
+            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :description, :status, :createdById, :room, :assignee)",true)
                     .addParameter("name", ticket.getName())
                     .addParameter("type", ticket.getType())
                     .addParameter("description", "")
                     .addParameter("status", ticket.getStatus())
                     .addParameter("createdById", ticket.getCreatedBy().getUserId())
                     .addParameter("room", ticket.getRoom().getId())
+                    .addParameter("assignee", ticket.getAssignee())
                     .executeUpdate()
                     .getKey(Integer.class);
         }
@@ -106,10 +107,13 @@ public class TicketDao {
 
         try (Connection c = sql2o.open())
         {
-            ticketId = c.createQuery("update tickets set room_id = :room, ticket_name = :name, ticket_status = :status where ticket_id = :id")
+            ticketId = c.createQuery("update tickets set room_id = :room, "
+                                   + "ticket_name = :name, assignee =: assignee, "
+                                   + "ticket_status = :status where ticket_id = :id, ")
                     .addParameter("name", ticket.getName())
                     .addParameter("status", ticket.getStatus())
                     .addParameter("room", ticket.getRoom().getId())
+                    .addParameter("assignee", ticket.getAssignee())
                     .addParameter("id", ticket.getId())
                     .executeUpdate()
                     .getKey(Integer.class);

@@ -15,18 +15,19 @@ public class Ticket {
     private Room room;
     private Date createdOn;
     private Date modifiedOn;
+    private String assignee;
 
     public Ticket(String name, String type, String status, int createdById, int roomId)
     {
-        this(0,name,type,status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()));
+        this(0,name,type,status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),"");
     }
 
     public Ticket(int id, String name, String status, int createdById, int roomId)
     {
-        this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()));
+        this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),"");
     }
 
-    public Ticket(int id, String name, String type, String status, User createdBy, Room room, Date createdOn, Date modifiedOn) {
+    public Ticket(int id, String name, String type, String status, User createdBy, Room room, Date createdOn, Date modifiedOn, String assignee) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -35,6 +36,7 @@ public class Ticket {
         this.room = room;
         this.createdOn = createdOn;
         this.modifiedOn = modifiedOn;
+        this.assignee = assignee;
     }
 
     public int getId()
@@ -125,5 +127,10 @@ public class Ticket {
     public void setModifiedOn(Date modifiedOn)
     {
         this.modifiedOn = modifiedOn;
+    }
+
+    public String getAssignee()
+    {
+        return this.assignee;
     }
 }

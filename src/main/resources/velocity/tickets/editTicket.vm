@@ -5,8 +5,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            #if($currentUser)
-            #foreach( $ticket in $tickets )
             <form id="editTicketForm" method="post">
                 <h1>Edit Ticket</h1>
 
@@ -14,6 +12,7 @@
                     <label for="name">Title</label>
                     <input id="name" class="form-control" type="text" name="name" placeholder="Title" value="$ticket.getTitle()" required>
                 </div>
+
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select id="status" class="form-control" name="status" placeholder="Status" required>
@@ -23,19 +22,34 @@
                     </select>
 
                 </div>
+
                 <div class="form-group">
-                                    <label for="name">Room</label>
-                <select class="form-control" id="room" name="room" required>
-                 #foreach( $room in $rooms )
-                    #if($room.getName() == $ticket.getRoom())
-                         <option value="$room.getId()" selected="selected">$room.getName()</option>
-                    #else
-                         <option value="$room.getId()">$room.getName()</option>
-                    #end
-                 #end
-                </select>
-                <input type="hidden" name="id" value="$ticket.getId()">
+                    <label for="room">Room</label>
+                    <select class="form-control" id="room" name="room" required>
+                        #foreach( $room in $rooms )
+                            #if($room.getName() == $ticket.getRoom())
+                                <option value="$room.getId()" selected="selected">$room.getName()</option>
+                            #else
+                                <option value="$room.getId()">$room.getName()</option>
+                            #end
+                        #end
+                    </select>
+                    <input type="hidden" name="id" value="$ticket.getId()">
                 </div>
+
+                <div class="form-group">
+                    <label for="assignee">Assignee</label>
+                    <select class="form-control" id="assignee" name="assignee" required>
+                        #foreach( $employee in $employees )
+                            #if($employee.getUsername() == $ticket.getAssignee())
+                                <option value="$employee.getId()" selected="selected">$employee.getUsername()</option>
+                            #else
+                                <option value="$employee.getId()">$employee.getUsername()</option>
+                            #end
+                        #end
+                    </select>
+                </div>
+
                 <input  class="btn btn-default" type="submit" value="Edit Ticket">
             </form>
              <!---     <table class="table">
@@ -55,9 +69,7 @@
                           <td>$ticket.getStatus()</td>
                           </tr>
                     </tbody>
-                  </table>--->
-             #end
-            #end
+                  </table> -->
             #if(!$currentUser)
                 <p class="bad notification">You are not logged in.</p>
             #end

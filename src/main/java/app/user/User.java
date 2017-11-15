@@ -13,7 +13,8 @@ public class User {
         this.id = id;
     }
 
-    public User(int id, String username, String salt, String hash, String role){
+    public User(int id, String username, String salt, String hash, String role)
+    {
         this.id = id;
         this.username = username;
         this.salt = salt;
@@ -21,18 +22,28 @@ public class User {
         this.role = role;
     }
 
-    public int getUserId() { return this.id; }
-    String getUsername() {
+    public int getUserId()
+    {
+        return this.id;
+    }
+
+    public String getUsername()
+    {
         return this.username;
     }
 
-    String getSalt() {
+    public String getSalt()
+    {
         return this.salt;
     }
 
-    String getHashedPassword() {
+    public String getHashedPassword()
+    {
         return this.hashedPassword;
     }
-    public String getRole() { return this.role; }
 
+    public String getRole()
+    { 
+        return this.role;
+    }
 }
