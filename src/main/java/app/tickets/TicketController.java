@@ -26,6 +26,9 @@ public class TicketController {
     static TicketDao ticketDao = new TicketDao(sql2o);
 
     public static Route serveCreatePage = (Request request, Response response) -> {
+        if(!AuthenticationHelpers.isLoggedIn(request))
+            response.redirect(Path.Web.LOGIN);
+
         Map<String, Object> model = new HashMap<>();
 
         model.put("rooms", ticketDao.GetRooms());
@@ -33,6 +36,9 @@ public class TicketController {
     };
 
     public static Route handleCreateTicketPost = (Request request, Response response) -> {
+        if(!AuthenticationHelpers.isLoggedIn(request))
+            response.redirect(Path.Web.LOGIN);
+
         Map<String, Object> model = new HashMap<>();
         String name = request.queryParams("name");
         String type = request.queryParams("type");
@@ -79,6 +85,9 @@ public class TicketController {
     };
 
     public static Route handleEditTicketPost = (Request request, Response response) -> {
+        if(!AuthenticationHelpers.isLoggedIn(request))
+            response.redirect(Path.Web.LOGIN);
+        
         Map<String, Object> model = new HashMap<>();
         String name = request.queryParams("name");
         String roomId = request.queryParams("room");

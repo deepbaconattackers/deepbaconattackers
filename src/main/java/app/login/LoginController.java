@@ -1,5 +1,6 @@
 package app.login;
 
+import app.helpers.AuthenticationHelpers;
 import spark.*;
 import app.user.*;
 import app.util.*;
@@ -35,6 +36,9 @@ public class LoginController {
     };
 
     public static Route handleLogoutPost = (Request request, Response response) -> {
+        if(!AuthenticationHelpers.isLoggedIn(request))
+            response.redirect(Path.Web.LOGIN);
+
         request.session().removeAttribute("currentUser");
         request.session().attribute("loggedOut", true);
         response.redirect(Path.Web.LOGIN);
