@@ -62,6 +62,12 @@ public class TicketController {
         if(!AuthenticationHelpers.isLoggedIn(request))
             response.redirect(Path.Web.LOGIN);
 
+        UserDao userDao = new UserDao(sql2o);
+        User u = userDao.getUserByUsername(request.session().attribute("currentUser"));
+
+        if(!AuthenticationHelpers.isManager(u))
+            response.redirect(Path.Web.INDEX);
+
         Map<String, Object> model = new HashMap<>();
         //model.put("tickets", getLatestTicketsWithId());
         //model.put("tickets", getLatestTickets());

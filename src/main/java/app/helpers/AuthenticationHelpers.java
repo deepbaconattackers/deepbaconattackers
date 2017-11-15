@@ -1,5 +1,6 @@
 package app.helpers;
 
+import app.user.User;
 import spark.*;
 
 public class AuthenticationHelpers {
@@ -10,9 +11,8 @@ public class AuthenticationHelpers {
         return user != null && !user.isEmpty();
     }
 
-    public static boolean isManager(Request request)
+    public static boolean isManager(User user)
     {
-        String role = request.session().attribute("currentRole");
-        return role != null && (role.toLowerCase()).compareTo("manager") == 0;
+        return  (user.getRole().toLowerCase()).compareTo("manager") == 0;
     }
 }
