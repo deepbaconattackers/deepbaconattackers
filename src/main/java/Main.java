@@ -32,7 +32,7 @@ public class Main {
         post(Path.Web.CREATE_TICKETS, TicketController.handleCreateTicketPost);
 
         get(Path.Web.EDIT_TICKETS + ":id/", TicketController.serveEditPage);
-        post(Path.Web.EDIT_TICKETS, TicketController.handleEditTicketPost);
+        post(Path.Web.EDIT_TICKETS + ":id/", TicketController.handleEditTicketPost);
         get("*",                     ViewUtil.notFound);
 
         //Set up after-filters (called after each get/post)
