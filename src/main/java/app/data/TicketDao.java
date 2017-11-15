@@ -34,27 +34,11 @@ public class TicketDao {
         }
     }
 
-    public Iterable<TicketSummary> GetRecentTickets()
-    {
-        try (Connection c = sql2o.open())
-        {
-            List<TicketSummary> tickets = c.createQuery("select created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc limit 10")
-                    .executeAndFetch(TicketSummary.class);
-
-            return tickets;
-        }
-        catch(Exception e)
-        {
-            //todo: log it or do something
-            return null;
-        }
-    }
-
     public Iterable<TicketSummary> GetTicketsWithId()
     {
         try (Connection c = sql2o.open())
         {
-            List<TicketSummary> tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc")
+            List<TicketSummary> tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id order by created desc limit 10")
                     .executeAndFetch(TicketSummary.class);
 
             return tickets;

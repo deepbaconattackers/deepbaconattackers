@@ -104,11 +104,6 @@ public class TicketController {
         return ticketDao.GetTicketById(id);
     }
 
-    public static Iterable<TicketSummary> getLatestTickets() {
-        TicketDao ticketDao = new TicketDao(sql2o);
-        return ticketDao.GetRecentTickets();
-    }
-
     public static Iterable<TicketSummary> getLatestTicketsWithId() {
         TicketDao ticketDao = new TicketDao(sql2o);
         return ticketDao.GetTicketsWithId();
