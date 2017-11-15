@@ -12,6 +12,7 @@ import org.sql2o.Sql2o;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import app.helpers.AuthenticationHelpers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +59,9 @@ public class TicketController {
     };
 
     public static Route serveEditPage = (Request request, Response response) -> {
+        if(!AuthenticationHelpers.isLoggedIn(request))
+            response.redirect(Path.Web.LOGIN);
+
         Map<String, Object> model = new HashMap<>();
         //model.put("tickets", getLatestTicketsWithId());
         //model.put("tickets", getLatestTickets());
