@@ -17,10 +17,9 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select id="status" class="form-control" name="status" placeholder="Status" required>
-                        <option value="Pending Assignment" #if($ticket.getStatus() == "Pending Assignment")selected="selected"#end>Pending Assignment</option>
-                        <option value="Assigned" #if($ticket.getStatus() == "Assigned")selected="selected"#end>Assigned</option>
-                        <option value="In Progress" #if($ticket.getStatus() == "In Progress")selected="selected"#end>In Progress</option>
-                        <option value="Resolved" #if($ticket.getStatus() == "Resolved")selected="selected"#end>Resolved</option>
+                        <option value="Open" #if($ticket.getStatus() == "Open")selected="selected"#end>Open</option>
+                        <option value="Closed" #if($ticket.getStatus() == "Closed")selected="selected"#end>Closed</option>
+                        <option value="Deleted" #if($ticket.getStatus() == "Deleted")selected="selected"#end>Deleted</option>
                     </select>
 
                 </div>
