@@ -9,8 +9,13 @@
                 <h1>Edit Ticket</h1>
 
                 <div class="form-group">
-                    <label for="name">Title</label>
-                    <input id="name" class="form-control" type="text" name="name" placeholder="Title" value="$ticket.getTitle()" required>
+                    <label for="name">Name</label>
+                    <input id="name" class="form-control" type="text" name="name" placeholder="Name" value="$ticket.getName()" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <input id="type" class="form-control" type="text" name="type" placeholder="Type" value="$ticket.getType()" required>
                 </div>
 
                 <div class="form-group">
@@ -52,24 +57,6 @@
 
                 <input  class="btn btn-default" type="submit" value="Edit Ticket">
             </form>
-             <!---     <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Time</th>
-                        <th>Room</th>
-                        <th>Title</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                          <tr>
-                          <td>$date.format('medium',$ticket.getCreated())</td>
-                          <td>$ticket.getRoom()</td>
-                          <td>$ticket.getTitle()</td>
-                          <td>$ticket.getStatus()</td>
-                          </tr>
-                    </tbody>
-                  </table> -->
             #if(!$currentUser)
                 <p class="bad notification">You are not logged in.</p>
             #end

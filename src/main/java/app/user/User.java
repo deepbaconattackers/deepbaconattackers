@@ -8,6 +8,8 @@ public class User {
     private int id;
     private String role;
 
+    public User() {}
+
     public User(int id)
     {
         this.id = id;
@@ -32,9 +34,22 @@ public class User {
         return this.id;
     }
 
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public void setUserId(int id){
+        this.id = id;
+    }
+
     public String getUsername()
     {
         return this.username;
+    }
+
+    public void setUserName(String userName){
+        this.username = userName;
     }
 
     public String getSalt()

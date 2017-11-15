@@ -11,23 +11,23 @@ public class Ticket {
     private String type;
     private String description;
     private String status;
-    private User createdBy;
-    private Room room;
+    public User createdBy;
+    public Room room;
     private Date createdOn;
     private Date modifiedOn;
-    private String assignee;
+    public User assignee;
 
     public Ticket(String name, String type, String status, int createdById, int roomId)
     {
-        this(0,name,type,status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),"");
+        this(0,name,type,status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),null);
     }
 
     public Ticket(int id, String name, String status, int createdById, int roomId)
     {
-        this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),"");
+        this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),null);
     }
 
-    public Ticket(int id, String name, String type, String status, User createdBy, Room room, Date createdOn, Date modifiedOn, String assignee) {
+    public Ticket(int id, String name, String type, String status, User createdBy, Room room, Date createdOn, Date modifiedOn, User assignee) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -129,8 +129,10 @@ public class Ticket {
         this.modifiedOn = modifiedOn;
     }
 
-    public String getAssignee()
+    public User getAssignee()
     {
         return this.assignee;
     }
+
+    public void setAssignee(User u) { this.assignee = u; }
 }

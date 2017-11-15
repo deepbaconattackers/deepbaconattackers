@@ -54,11 +54,20 @@ public class TicketDao {
     {
         try (Connection c = sql2o.open())
         {
-            Ticket tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id where tickets.ticket_id = :id")
+            //created as createdOn,
+            //modified as modifiedOn,
+
+            Ticket ticket = c.createQuery("select ticket_id as id, ticket_name as name, ticket_type as type,"
+                    + " ticket_status as status, tickets.user_id as \"createdBy.id\", users.username as \"createdBy.username\", "
+                    + " tickets.room_id as \"room.id\", rooms.room_name as \"room.name\", "
+                    + "  assignee as \"assignee.id\", assigned.username as \"assignee.username\""
+                    + " from tickets join rooms on tickets.room_id = rooms.room_id "
+                    + " join users on tickets.user_id = users.user_id "
+                    + " left join users as assigned on tickets.assignee = assigned.user_id where ticket_id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Ticket.class);
 
-            return tickets;
+            return ticket;
         }
         catch(Exception e)
         {

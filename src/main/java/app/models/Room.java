@@ -1,8 +1,10 @@
 package app.models;
 
 public class Room {
-    private int id;
-    private String name;
+    public int id;
+    public String name;
+
+    public Room() {}
 
     public Room(int id)
     {
