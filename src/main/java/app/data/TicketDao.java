@@ -50,13 +50,13 @@ public class TicketDao {
         }
     }
 
-    public Iterable<TicketSummary> GetTicketById(int id)
+    public Ticket GetTicketById(int id)
     {
         try (Connection c = sql2o.open())
         {
-            List<TicketSummary> tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id where tickets.ticket_id = :id order by created desc")
+            Ticket tickets = c.createQuery("select ticket_id as id, created, room_name as room, ticket_name as title, ticket_status as status from tickets join rooms on tickets.room_id = rooms.room_id where tickets.ticket_id = :id")
                     .addParameter("id", id)
-                    .executeAndFetch(TicketSummary.class);
+                    .executeAndFetchFirst(Ticket.class);
 
             return tickets;
         }

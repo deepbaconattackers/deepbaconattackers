@@ -79,7 +79,7 @@ public class TicketController {
         //model.put("tickets", getLatestTickets());
         //String my_id = request.queryParams("id");
         //int id_num = Integer.parseInt(my_id);
-        model.put("tickets", getTicket(Integer.parseInt(request.params(":id"))));
+        model.put("ticket", getTicket(Integer.parseInt(request.params(":id"))));
         model.put("rooms", ticketDao.GetRooms());
         model.put("employees", userDao.getUsers("Staff"));
         return ViewUtil.render(request, model, Path.Template.EDIT_TICKET);
@@ -115,7 +115,7 @@ public class TicketController {
         return ViewUtil.render(request, model, Path.Template.EDIT_TICKET_SUCCESS);
     };
 
-    public static Iterable<TicketSummary> getTicket(int id) {
+    public static Ticket getTicket(int id) {
         TicketDao ticketDao = new TicketDao(sql2o);
         return ticketDao.GetTicketById(id);
     }
