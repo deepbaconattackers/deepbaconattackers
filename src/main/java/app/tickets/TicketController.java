@@ -93,6 +93,7 @@ public class TicketController {
         Map<String, Object> model = new HashMap<>();
         String name = request.queryParams("name");
         String roomId = request.queryParams("room");
+        String assignedId = request.queryParams("assignee");
         String ticketId = request.queryParams("id");
         String status = request.queryParams("status");
         //username lives in the session
@@ -107,7 +108,8 @@ public class TicketController {
                         name,
                         status,
                         u.getUserId(),
-                        Integer.parseInt(roomId)
+                        Integer.parseInt(roomId),
+                        Integer.parseInt(assignedId)
                 )
         );
 

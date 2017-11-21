@@ -112,20 +112,20 @@ public class TicketDao {
 
     public Ticket EditTicket(Ticket ticket)
     {
-        int ticketId = 0;
+        //int ticketId = 0;
 
         try (Connection c = sql2o.open())
         {
-            ticketId = c.createQuery("update tickets set room_id = :room, "
-                                   + "ticket_name = :name, assignee =: assignee, "
-                                   + "ticket_status = :status where ticket_id = :id, ")
+            c.createQuery("update tickets set room_id = :room, "
+                                   + "ticket_name = :name, assignee =:assignee, "
+                                   + "ticket_status = :status where ticket_id = :id ")
                     .addParameter("name", ticket.getName())
                     .addParameter("status", ticket.getStatus())
                     .addParameter("room", ticket.getRoom().getId())
-                    .addParameter("assignee", ticket.getAssignee())
+                    .addParameter("assignee", ticket.getAssignee().getUserId())
                     .addParameter("id", ticket.getId())
-                    .executeUpdate()
-                    .getKey(Integer.class);
+                    .executeUpdate();
+                    //.getKey(Integer.class);
         }
         catch(Exception e)
         {
@@ -134,7 +134,7 @@ public class TicketDao {
             return ticket;
         }
 
-        ticket.setId(ticketId);
+        //ticket.setId(ticketId);
         return ticket;
     }
 }

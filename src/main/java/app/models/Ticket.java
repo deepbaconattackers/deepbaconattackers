@@ -27,6 +27,11 @@ public class Ticket {
         this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),null);
     }
 
+    public Ticket(int id, String name, String status, int createdById, int roomId, int assignee)
+    {
+        this(id,name,"temp",status,new User(createdById),new Room(roomId),Date.from(Instant.now()), Date.from(Instant.now()),new User(assignee));
+    }
+
     public Ticket(int id, String name, String type, String status, User createdBy, Room room, Date createdOn, Date modifiedOn, User assignee) {
         this.id = id;
         this.name = name;
