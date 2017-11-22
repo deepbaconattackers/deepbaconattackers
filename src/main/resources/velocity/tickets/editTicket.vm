@@ -55,7 +55,7 @@
                     </select>
                 </div>
 
-                <input  class="btn btn-default" type="submit" value="Edit Ticket">
+                <input  class="btn btn-default" type="submit" value="Save">
             </form>
             #if(!$currentUser)
                 <p class="bad notification">You are not logged in.</p>
