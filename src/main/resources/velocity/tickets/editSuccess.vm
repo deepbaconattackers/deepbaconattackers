@@ -7,6 +7,10 @@
             #if($currentUser)
                 #if($ticketId > 0)
                     <p>Congratulations, ticket $ticketId edited.</p>
+                    <!-- https://stackoverflow.com/questions/200337/whats-the-best-way-to-automatically-redirect-someone-to-another-webpage -->
+                    <!-- https://stackoverflow.com/a/200339/2033574 -->
+                    <!-- https://stackoverflow.com/a/200365/2033574 -->
+                    <script>setTimeout(() => { window.location.replace("/") }, 1000)</script>
                 #else
                     <p class="bad notification">Oops... there seems to be a problem.  Please try again.</p>
                 #end
