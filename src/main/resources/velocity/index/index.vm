@@ -33,7 +33,12 @@
         <tbody>
           #foreach( $ticket in $tickets )
               <tr>
-              <td>$date.format('medium',$ticket.getCreated())</td>
+              #set( $dateTime = $ticket.getCreated())
+              #if ( $dateTime )
+              <td>$date.format('medium', $dateTime)</td>
+              #else
+              <td>N/A</td>
+              #end
               <td>$ticket.getRoom()</td>
               <td>$ticket.getTitle()</td>
               <td>$ticket.getStatus()</td>
