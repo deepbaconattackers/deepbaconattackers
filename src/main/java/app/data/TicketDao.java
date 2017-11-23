@@ -88,7 +88,7 @@ public class TicketDao {
 
         try (Connection c = sql2o.open())
         {
-            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :description, :status, :createdById, :room, :assignee)",true)
+            ticketId = c.createQuery("insert into tickets VALUES (NEXTVAL('tickets_ticket_id_seq'), :name, :type, :description, :status, :createdById, :room, now(), now(), :assignee)",true)
                     .addParameter("name", ticket.getName())
                     .addParameter("type", ticket.getType())
                     .addParameter("description", "")
