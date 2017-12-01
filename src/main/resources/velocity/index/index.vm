@@ -7,7 +7,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1 class="display-3">Welcome to Mav Maintenance!</h1>
-        <p>This is a template for a simple marketing or informational website. It has a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p>This app will let users create tickets for maintenance problems they experience at UNO. Managers can assign tickets to janitors, who can address the tickets and close them.</p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
     </div>
 </div>
